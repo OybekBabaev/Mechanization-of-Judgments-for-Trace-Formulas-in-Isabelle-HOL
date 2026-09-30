@@ -12,7 +12,7 @@ abbreviation chop :: "trace set \<Rightarrow> trace set \<Rightarrow> trace set"
   "A \<Zcat>\<^sub>t B \<equiv> {(s, \<sigma>) | s \<sigma>.(s, []) \<in> A \<and> (s, \<sigma>) \<in> B} \<union>
     {(s, \<sigma> @ s' # \<sigma>') | s \<sigma> s' \<sigma>'.(s, \<sigma> @ [s']) \<in> A \<and> (s', \<sigma>') \<in> B}"
 
-primrec statement_semantics :: "S \<Rightarrow> (method_name \<Rightarrow> trace set) \<Rightarrow> (stm_var \<Rightarrow> trace set) \<Rightarrow> trace set"
+primrec statement_semantics :: "S \<Rightarrow> (stm_var \<Rightarrow> trace set) \<Rightarrow> (method_name \<Rightarrow> trace set) \<Rightarrow> trace set"
   ("\<S>\<^sub>\<t>\<^sub>\<r>\<lbrakk>_\<rbrakk>\<^sub>_\<^sub>,\<^sub>_" [55, 80, 80] 80) where
   "\<S>\<^sub>\<t>\<^sub>\<r>\<lbrakk>SKIP\<rbrakk>\<^sub>\<rho>\<^sub>,\<^sub>\<I> = {(s, [s]) | s. True}" |
   "\<S>\<^sub>\<t>\<^sub>\<r>\<lbrakk>x := a\<rbrakk>\<^sub>\<rho>\<^sub>,\<^sub>\<I> = {(s, [s']) | s s'. s' = s\<langle>x \<longmapsto> \<bbbA>\<lbrakk>a\<rbrakk>(s)\<rangle>}" |
