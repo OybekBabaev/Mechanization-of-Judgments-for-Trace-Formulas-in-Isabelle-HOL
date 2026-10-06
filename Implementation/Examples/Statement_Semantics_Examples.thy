@@ -35,6 +35,12 @@ lemma "(s\<^sub>0, [s\<^sub>0, s\<^sub>0\<langle>''x'' \<longmapsto> 4\<rangle>,
     \<in> rec_sem (IF TRUE THEN (''x'' := Num 4);;(''y'' := Num 4) ELSE SKIP FI, fmempty) \<I>"
   by (simp add: rec_sem_def)
 
+lemma "(s\<^sub>0\<langle>''x'' \<longmapsto> -1\<rangle>, [s\<^sub>0\<langle>''x'' \<longmapsto> -1\<rangle>, s\<^sub>0\<langle>''x'' \<longmapsto> -1\<rangle>])
+    \<in> rec_sem (IF (Not (Eq (Var ''x'') (Var ''y''))) THEN SKIP
+        ELSE ((''x'' := Num 5);;(''y'' := Num 5);;(''z'' := Num 1)) FI,
+      fmempty) \<I>"
+  by (simp add: rec_sem_def s\<^sub>0_def)
+
 lemma "(s\<^sub>0, [s\<^sub>0, s\<^sub>0\<langle>''x'' \<longmapsto> 5\<rangle>, s\<^sub>0\<langle>''x'' \<longmapsto> 5\<rangle>\<langle>''y'' \<longmapsto> 5\<rangle>, s\<^sub>0\<langle>''x'' \<longmapsto> 5\<rangle>\<langle>''y'' \<longmapsto> 5\<rangle>\<langle>''z'' \<longmapsto> 1\<rangle>])
     \<in> rec_sem (IF (Not (Eq (Var ''x'') (Var ''y''))) THEN SKIP
         ELSE ((''x'' := Num 5);;(''y'' := Num 5);;(''z'' := Num 1)) FI,
