@@ -2,7 +2,7 @@ theory "Easy_Examples"
   imports "../../TFI_Prover" "../../JC_Prover"
 begin
 
-(* x := 3 ; y := 7 *)
+(* x := 3 ; skip ; y := 7 *)
 
 lemma "\<Gamma> \<turnstile>\<^sub>T (''x'' := Num 3;;SKIP;;''y'' := Num 7)
           : Rel (Sb ''x'' (Num 3)) \<Zcat> Rel Id \<Zcat> Rel (Sb ''y'' (Num 7))"
@@ -22,10 +22,10 @@ lemma "\<Gamma> \<turnstile>\<^sub>T (''x'' := Num 2;;''x'' := Num 4;;''x'' := N
   apply assign
   by assign
 
-(* if True then x := 4 ; y := 4 else skip *)
+(* if z = 0 then x := 4 ; y := 4 else skip *)
 
-lemma "\<Gamma> \<turnstile>\<^sub>T (IF TRUE THEN (''x'' := Num 4);;(''y'' := Num 4) ELSE SKIP FI)
-        : stf(IF TRUE THEN (''x'' := Num 4);;(''y'' := Num 4) ELSE SKIP FI, T)"
+lemma "\<Gamma> \<turnstile>\<^sub>T (IF (Eq (Var ''z'') (Num 0)) THEN (''x'' := Num 4);;(''y'' := Num 4) ELSE SKIP FI)
+        : stf(IF (Eq (Var ''z'') (Num 0)) THEN (''x'' := Num 4);;(''y'' := Num 4) ELSE SKIP FI, T)"
   apply ite
   apply (cons "stf (SKIP;;(''x'' := Num 4);;(''y'' := Num 4), T)")
   apply seq
@@ -50,8 +50,8 @@ lemma "\<Gamma> \<turnstile>\<^sub>T (''x'' := Num 2;;''x'' := Num 4;;''x'' := N
       : Rel (Sb ''x'' (Num 2)) \<Zcat> Rel (Sb ''x'' (Num 4)) \<Zcat> Rel (Sb ''x'' (Num 3))"
   by jc_auto
 
-lemma "\<Gamma> \<turnstile>\<^sub>T (IF TRUE THEN (''x'' := Num 4);;(''y'' := Num 4) ELSE SKIP FI)
-        : stf(IF TRUE THEN (''x'' := Num 4);;(''y'' := Num 4) ELSE SKIP FI, T)"
+lemma "\<Gamma> \<turnstile>\<^sub>T (IF (Eq (Var ''z'') (Num 0)) THEN (''x'' := Num 4);;(''y'' := Num 4) ELSE SKIP FI)
+        : stf(IF (Eq (Var ''z'') (Num 0)) THEN (''x'' := Num 4);;(''y'' := Num 4) ELSE SKIP FI, T)"
   apply jc_auto
   apply (cons "stf (SKIP;;(''x'' := Num 4);;(''y'' := Num 4), T)")
   apply jc_auto
