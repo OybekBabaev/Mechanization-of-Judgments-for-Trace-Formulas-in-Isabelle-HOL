@@ -90,7 +90,7 @@ lemma "(s\<^sub>0, [s\<^sub>0\<langle>''x'' \<longmapsto> 4\<rangle>, s\<^sub>0\
       s\<^sub>0\<langle>''x'' \<longmapsto> 0\<rangle>, s\<^sub>0\<langle>''x'' \<longmapsto> 0\<rangle>, s\<^sub>0\<langle>''x'' \<longmapsto> 0\<rangle>,
       s\<^sub>0\<langle>''y'' \<longmapsto> 1\<rangle>])
      \<in> rec_sem ((''x'' := Num 4);;(Call ''even''), T\<^sub>7) \<I>"
-  apply (auto simp add: rec_sem_def initial_interpretation_def T\<^sub>7_def)
+  apply (simp add: rec_sem_def initial_interpretation_def T\<^sub>7_def)
   apply (subst lfp_unfold[OF sem_ops_mono])
   apply (simp add: sem_ops_def)
   apply (subst lfp_unfold[OF sem_ops_mono])
