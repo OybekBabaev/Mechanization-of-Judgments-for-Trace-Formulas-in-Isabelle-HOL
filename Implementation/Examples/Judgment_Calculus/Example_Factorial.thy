@@ -18,14 +18,14 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>f (Call ''fact'') : stf(Call ''fact'', T\<^
   apply call
   apply unfold
   apply ite
-  apply (rule_tac \<phi>' = "stf(SKIP;;SKIP, T\<^sub>f)" in CONS, simp)
+  apply (cons "stf(SKIP;;SKIP, T\<^sub>f)")
   apply (seq, skip, skip)
   apply tfi_auto
-  apply (rule_tac \<phi>' = "stf(SKIP, T\<^sub>f) \<Zcat> stf(''x'' := Var ''x'' \<otimes> Var ''n'', T\<^sub>f)
+  apply (cons "stf(SKIP, T\<^sub>f) \<Zcat> stf(''x'' := Var ''x'' \<otimes> Var ''n'', T\<^sub>f)
     \<Zcat> stf(''n'' := Var ''n'' \<ominus> Num 1, T\<^sub>f)
     \<Zcat> stf(Call ''fact'', fmap_of_list [(''fact'', IF Leq (Var ''n'') (Num 1)
       THEN SKIP ELSE ''x'' := (Var ''x'' \<otimes> Var ''n'');;
-        ''n'' := (Var ''n'' \<ominus> Num 1);;Call ''fact'' FI)])" in CONS, simp)
+        ''n'' := (Var ''n'' \<ominus> Num 1);;Call ''fact'' FI)])")
   apply auto
   apply (seq, skip)
   apply (seq, assign)

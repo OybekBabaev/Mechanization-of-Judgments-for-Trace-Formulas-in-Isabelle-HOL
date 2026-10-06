@@ -20,21 +20,21 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>3 (''z'' := Num 1;;Call ''power'') : Rel (S
   apply call
   apply unfold
   apply ite
-  apply (rule_tac \<phi>' = "stf(SKIP;;SKIP, T\<^sub>3)" in CONS, simp)
+  apply (cons "stf(SKIP;;SKIP, T\<^sub>3)")
   apply (seq, skip, skip)
   apply tfi_auto
-  apply (rule_tac \<phi>' = "stf(SKIP, T\<^sub>3) \<Zcat> stf(''z'' := (Var ''z'' \<otimes> Var ''y''), T\<^sub>3)
+  apply (cons "stf(SKIP, T\<^sub>3) \<Zcat> stf(''z'' := (Var ''z'' \<otimes> Var ''y''), T\<^sub>3)
     \<Zcat> stf(Call ''subtract'', fmap_of_list [(''power'', IF Eq (Var ''x'') (Num 1)
     THEN SKIP ELSE ''z'' := (Var ''z'' \<otimes> Var ''y'');;Call ''subtract'' FI),
-    (''subtract'', ''x'' := (Var ''x'' \<ominus> Num 1);;Call ''power'')])" in CONS, simp)
+    (''subtract'', ''x'' := (Var ''x'' \<ominus> Num 1);;Call ''power'')])")
   apply (seq, skip)
   apply (seq, assign)
   apply call
   apply unfold
   apply (seq, assign)
-  apply (rule_tac \<phi>' = "stf(Call ''power'', fmap_of_list [(''power'', IF Eq (Var ''x'') (Num 1)
+  apply (cons "stf(Call ''power'', fmap_of_list [(''power'', IF Eq (Var ''x'') (Num 1)
     THEN SKIP ELSE ''z'' := (Var ''z'' \<otimes> Var ''y'');;Call ''subtract'' FI),
-    (''subtract'', ''x'' := (Var ''x'' \<ominus> Num 1);;Call ''power'')])" in CONS, simp)
+    (''subtract'', ''x'' := (Var ''x'' \<ominus> Num 1);;Call ''power'')])")
   apply (seq, skip)
   apply (simp add: sequent_valid_def)
   apply blast

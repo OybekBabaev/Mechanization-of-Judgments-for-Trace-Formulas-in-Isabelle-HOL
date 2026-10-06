@@ -16,14 +16,14 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>d (Call ''down'') : stf(Call ''down'', T\<^
   apply call
   apply unfold
   apply ite
-  apply (rule_tac \<phi>' = "stf(SKIP;;SKIP, T\<^sub>d)" in CONS, simp)
+  apply (cons "stf(SKIP;;SKIP, T\<^sub>d)")
   apply seq
   apply skip
   apply skip
   apply tfi_auto
-  apply (rule_tac \<phi>' = "stf(SKIP, T\<^sub>d) \<Zcat> stf(''x'' := Var ''x'' \<ominus> Num 1, T\<^sub>d)
+  apply (cons "stf(SKIP, T\<^sub>d) \<Zcat> stf(''x'' := Var ''x'' \<ominus> Num 1, T\<^sub>d)
      \<Zcat> stf(Call ''down'', fmap_of_list [(''down'', IF Eq (Var ''x'') (Num 0)
-        THEN SKIP ELSE ''x'' := (Var ''x'' \<ominus> Num 1);;(Call ''down'') FI)])" in CONS, simp)
+        THEN SKIP ELSE ''x'' := (Var ''x'' \<ominus> Num 1);;(Call ''down'') FI)])")
   apply auto
   apply seq
   apply skip
@@ -39,12 +39,12 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>d (Call ''down'') : stf(Call ''down'', T\<^
 lemma "[] \<turnstile>\<^sub>T\<^sub>d (Call ''down'') : stf(Call ''down'', T\<^sub>d)"
   apply (simp add: T\<^sub>d_def)
   apply jc_auto+
-  apply (rule_tac \<phi>' = "stf(SKIP;;SKIP, T\<^sub>d)" in CONS, simp)
+  apply (cons "stf(SKIP;;SKIP, T\<^sub>d)")
   apply jc_auto
   apply tfi_auto
-  apply (rule_tac \<phi>' = "stf(SKIP, T\<^sub>d) \<Zcat> stf(''x'' := Var ''x'' \<ominus> Num 1, T\<^sub>d)
+  apply (cons "stf(SKIP, T\<^sub>d) \<Zcat> stf(''x'' := Var ''x'' \<ominus> Num 1, T\<^sub>d)
      \<Zcat> stf(Call ''down'', fmap_of_list [(''down'', IF Eq (Var ''x'') (Num 0)
-        THEN SKIP ELSE ''x'' := (Var ''x'' \<ominus> Num 1);;(Call ''down'') FI)])" in CONS, simp)
+        THEN SKIP ELSE ''x'' := (Var ''x'' \<ominus> Num 1);;(Call ''down'') FI)])")
   apply auto
   apply jc_auto
   apply (simp add: sequent_valid_def)

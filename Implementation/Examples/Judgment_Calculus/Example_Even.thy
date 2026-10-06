@@ -22,31 +22,31 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
   apply call
   apply unfold
   apply ite
-  apply (rule_tac \<phi>' = "stf(SKIP ;; ''y'' := Num 1, T\<^sub>e)" in CONS, simp)
+  apply (cons "stf(SKIP ;; ''y'' := Num 1, T\<^sub>e)")
   apply (seq, skip, assign)
   apply tfi_auto
-  apply (rule_tac \<phi>' = "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := Var ''x'' \<ominus> Num 1, T\<^sub>e)
+  apply (cons "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := Var ''x'' \<ominus> Num 1, T\<^sub>e)
     \<Zcat> stf(Call ''odd'', fmap_of_list [(''even'', (IF Eq (Var ''x'') (Num 0)
           THEN (''y'' := Num 1)
           ELSE (''x'' := ((Var ''x'' \<ominus> (Num 1))));;(Call ''odd'') FI)),
         (''odd'', (IF Eq (Var ''x'') (Num 0)
           THEN (''y'' := Num 0)
-          ELSE (''x'' := ((Var ''x'' \<ominus> (Num 1))));;(Call ''even'') FI))])" in CONS, simp)
+          ELSE (''x'' := ((Var ''x'' \<ominus> (Num 1))));;(Call ''even'') FI))])")
   apply (seq, skip)
   apply (seq, assign)
   apply call
   apply unfold
   apply ite
-  apply (rule_tac \<phi>' = "stf(SKIP ;; ''y'' := Num 0, T\<^sub>e)" in CONS, simp)
+  apply (cons "stf(SKIP ;; ''y'' := Num 0, T\<^sub>e)")
   apply (seq, skip, assign)
   apply tfi_auto
-  apply (rule_tac \<phi>' = "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := Var ''x'' \<ominus> Num 1, T\<^sub>e)
+  apply (cons "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := Var ''x'' \<ominus> Num 1, T\<^sub>e)
     \<Zcat> stf(Call ''even'', fmap_of_list [(''even'', (IF Eq (Var ''x'') (Num 0)
           THEN (''y'' := Num 1)
           ELSE (''x'' := ((Var ''x'' \<ominus> (Num 1))));;(Call ''odd'') FI)),
         (''odd'', (IF Eq (Var ''x'') (Num 0)
           THEN (''y'' := Num 0)
-          ELSE (''x'' := ((Var ''x'' \<ominus> (Num 1))));;(Call ''even'') FI))])" in CONS, simp)
+          ELSE (''x'' := ((Var ''x'' \<ominus> (Num 1))));;(Call ''even'') FI))])")
   apply (seq, skip)
   apply (seq, assign)
   apply (seq, skip)
@@ -255,10 +255,10 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                Rel Trace_Formulas.Id \<Zcat>
                                \<mu> ''even''. (Pred (\<lambda>s. s\<langle>''x''\<rangle> = 0) \<sqinter>
-Rel Trace_Formulas.Id \<Zcat> Rel (Sb ''y'' (Num 1)) \<squnion>
-Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0) \<sqinter>
-Rel Trace_Formulas.Id \<Zcat>
-Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat> Rel Trace_Formulas.Id \<Zcat> RVar ''odd'')))" in CONJ_R, simp+)
+                Rel Trace_Formulas.Id \<Zcat> Rel (Sb ''y'' (Num 1)) \<squnion>
+            Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0) \<sqinter>
+            Rel Trace_Formulas.Id \<Zcat>
+            Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat> Rel Trace_Formulas.Id \<Zcat> RVar ''odd'')))" in CONJ_R, simp+)
   apply (rule CLOSE, simp+)
   apply tfi_auto
   apply (rule FPI_ALT, auto)
