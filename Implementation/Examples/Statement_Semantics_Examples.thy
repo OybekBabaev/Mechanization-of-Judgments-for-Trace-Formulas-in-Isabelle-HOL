@@ -73,7 +73,7 @@ lemma "(s\<^sub>0, [s\<^sub>0, s\<^sub>0\<langle>''x'' \<longmapsto> 6\<rangle>,
   apply (simp add: sem_ops_def s\<^sub>0_def)
   apply (subst lfp_unfold[OF sem_ops_mono])
   apply (simp add: sem_ops_def s\<^sub>0_def)
-  by (auto simp add: fmap_ext)
+  by (simp add: fmap_ext)
 
 definition T\<^sub>7 :: Tmap where
   "T\<^sub>7 = fmap_of_list [(''even'', (IF Eq (Var ''x'') (Num 0)
@@ -101,7 +101,7 @@ lemma "(s\<^sub>0, [s\<^sub>0\<langle>''x'' \<longmapsto> 4\<rangle>, s\<^sub>0\
   apply (simp add: sem_ops_def)
   apply (subst lfp_unfold[OF sem_ops_mono])
   apply (simp add: sem_ops_def)
-  by (auto simp add: fmap_ext s\<^sub>0_def)
+  by (simp add: fmap_ext s\<^sub>0_def)
 
 lemma "(s\<^sub>0, [s\<^sub>0\<langle>''x'' \<longmapsto> 4\<rangle>, s\<^sub>0\<langle>''x'' \<longmapsto> 3\<rangle>, s\<^sub>0\<langle>''x'' \<longmapsto> 2\<rangle>,
       s\<^sub>0\<langle>''x'' \<longmapsto> 1\<rangle>, s\<^sub>0\<langle>''x'' \<longmapsto> 0\<rangle>, s\<^sub>0\<langle>''y'' \<longmapsto> 1\<rangle>])
