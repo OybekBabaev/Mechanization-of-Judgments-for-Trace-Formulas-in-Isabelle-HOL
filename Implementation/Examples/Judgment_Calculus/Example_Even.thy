@@ -26,12 +26,8 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
   apply (seq, skip, assign)
   apply tfi_auto
   apply (cons "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := Var ''x'' \<ominus> Num 1, T\<^sub>e)
-    \<Zcat> stf(Call ''odd'', fmap_of_list [(''even'', (IF Eq (Var ''x'') (Num 0)
-          THEN (''y'' := Num 1)
-          ELSE (''x'' := ((Var ''x'' \<ominus> (Num 1))));;(Call ''odd'') FI)),
-        (''odd'', (IF Eq (Var ''x'') (Num 0)
-          THEN (''y'' := Num 0)
-          ELSE (''x'' := ((Var ''x'' \<ominus> (Num 1))));;(Call ''even'') FI))])")
+    \<Zcat> stf(Call ''odd'', T\<^sub>e)")
+  apply (simp_all add: T\<^sub>e_def)
   apply (seq, skip)
   apply (seq, assign)
   apply call
@@ -41,12 +37,8 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
   apply (seq, skip, assign)
   apply tfi_auto
   apply (cons "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := Var ''x'' \<ominus> Num 1, T\<^sub>e)
-    \<Zcat> stf(Call ''even'', fmap_of_list [(''even'', (IF Eq (Var ''x'') (Num 0)
-          THEN (''y'' := Num 1)
-          ELSE (''x'' := ((Var ''x'' \<ominus> (Num 1))));;(Call ''odd'') FI)),
-        (''odd'', (IF Eq (Var ''x'') (Num 0)
-          THEN (''y'' := Num 0)
-          ELSE (''x'' := ((Var ''x'' \<ominus> (Num 1))));;(Call ''even'') FI))])")
+    \<Zcat> stf(Call ''even'', T\<^sub>e)")
+  apply (simp_all add: T\<^sub>e_def)
   apply (seq, skip)
   apply (seq, assign)
   apply (seq, skip)
@@ -943,7 +935,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                  Rel Trace_Formulas.Id \<Zcat> RVar ''even'')))]" in CH_ID, simp_all+)
   apply close
   apply (rule_tac X = "''odd''" in RVAR)
-  by auto
+  by simp+
 
 (* the same, but with new proof automation *)
 
@@ -956,12 +948,8 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
   apply jc_auto
   apply tfi_auto
   apply (cons "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := Var ''x'' \<ominus> Num 1, T\<^sub>e)
-    \<Zcat> stf(Call ''odd'', fmap_of_list [(''even'', (IF Eq (Var ''x'') (Num 0)
-          THEN (''y'' := Num 1)
-          ELSE (''x'' := ((Var ''x'' \<ominus> (Num 1))));;(Call ''odd'') FI)),
-        (''odd'', (IF Eq (Var ''x'') (Num 0)
-          THEN (''y'' := Num 0)
-          ELSE (''x'' := ((Var ''x'' \<ominus> (Num 1))));;(Call ''even'') FI))])")
+    \<Zcat> stf(Call ''odd'', T\<^sub>e)")
+  apply (simp_all add: T\<^sub>e_def)
   apply jc_auto
   apply call
   apply unfold
@@ -970,12 +958,8 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
   apply jc_auto
   apply tfi_auto
   apply (cons "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := Var ''x'' \<ominus> Num 1, T\<^sub>e)
-    \<Zcat> stf(Call ''even'', fmap_of_list [(''even'', (IF Eq (Var ''x'') (Num 0)
-          THEN (''y'' := Num 1)
-          ELSE (''x'' := ((Var ''x'' \<ominus> (Num 1))));;(Call ''odd'') FI)),
-        (''odd'', (IF Eq (Var ''x'') (Num 0)
-          THEN (''y'' := Num 0)
-          ELSE (''x'' := ((Var ''x'' \<ominus> (Num 1))));;(Call ''even'') FI))])")
+    \<Zcat> stf(Call ''even'', T\<^sub>e)")
+  apply (simp_all add: T\<^sub>e_def)
   apply jc_auto
   apply (simp add: sequent_valid_def)
   apply auto
@@ -1870,6 +1854,6 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                  Rel Trace_Formulas.Id \<Zcat> RVar ''even'')))]" in CH_ID, simp_all+)
   apply close
   apply (rule_tac X = "''odd''" in RVAR)
-  by auto
+  by simp+
 
 end

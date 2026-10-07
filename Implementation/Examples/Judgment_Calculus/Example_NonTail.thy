@@ -23,11 +23,8 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>t (Call ''nt'') : stf(Call ''nt'', T\<^sub>
   apply skip
   apply tfi_auto
   apply (cons "stf(SKIP, T\<^sub>t) \<Zcat> stf(''x'' := Var ''x'' \<ominus> Num 1, T\<^sub>t)
-    \<Zcat> stf(Call ''nt'', fmap_of_list [(''nt'', IF Leq (Var ''x'') (Num 0)
-        THEN SKIP
-        ELSE ''x'' := (Var ''x'' \<ominus> Num 1);;
-              (Call ''nt'');;''y'' := (Var ''y'' \<oplus> Num 1) FI)])
-    \<Zcat> stf(''y'' := (Var ''y'' \<oplus> Num 1), T\<^sub>t)")
+    \<Zcat> stf(Call ''nt'', T\<^sub>t) \<Zcat> stf(''y'' := (Var ''y'' \<oplus> Num 1), T\<^sub>t)")
+  apply (simp_all add: T\<^sub>t_def)
   apply seq
   apply skip
   apply seq
@@ -48,11 +45,8 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>t (Call ''nt'') : stf(Call ''nt'', T\<^sub>
   apply jc_auto
   apply tfi_auto
   apply (cons "stf(SKIP, T\<^sub>t) \<Zcat> stf(''x'' := Var ''x'' \<ominus> Num 1, T\<^sub>t)
-    \<Zcat> stf(Call ''nt'', fmap_of_list [(''nt'', IF Leq (Var ''x'') (Num 0)
-        THEN SKIP
-        ELSE ''x'' := (Var ''x'' \<ominus> Num 1);;
-              (Call ''nt'');;''y'' := (Var ''y'' \<oplus> Num 1) FI)])
-    \<Zcat> stf(''y'' := (Var ''y'' \<oplus> Num 1), T\<^sub>t)")
+    \<Zcat> stf(Call ''nt'', T\<^sub>t) \<Zcat> stf(''y'' := (Var ''y'' \<oplus> Num 1), T\<^sub>t)")
+  apply (simp_all add: T\<^sub>t_def)
   apply jc_auto
   apply (simp add: sequent_valid_def)
   apply jc_auto

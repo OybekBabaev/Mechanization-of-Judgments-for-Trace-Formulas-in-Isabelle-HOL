@@ -24,17 +24,15 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>3 (''z'' := Num 1;;Call ''power'') : Rel (S
   apply (seq, skip, skip)
   apply tfi_auto
   apply (cons "stf(SKIP, T\<^sub>3) \<Zcat> stf(''z'' := (Var ''z'' \<otimes> Var ''y''), T\<^sub>3)
-    \<Zcat> stf(Call ''subtract'', fmap_of_list [(''power'', IF Eq (Var ''x'') (Num 1)
-    THEN SKIP ELSE ''z'' := (Var ''z'' \<otimes> Var ''y'');;Call ''subtract'' FI),
-    (''subtract'', ''x'' := (Var ''x'' \<ominus> Num 1);;Call ''power'')])")
+    \<Zcat> stf(Call ''subtract'', T\<^sub>3)")
+  apply (simp_all add: T\<^sub>3_def)
   apply (seq, skip)
   apply (seq, assign)
   apply call
   apply unfold
   apply (seq, assign)
-  apply (cons "stf(Call ''power'', fmap_of_list [(''power'', IF Eq (Var ''x'') (Num 1)
-    THEN SKIP ELSE ''z'' := (Var ''z'' \<otimes> Var ''y'');;Call ''subtract'' FI),
-    (''subtract'', ''x'' := (Var ''x'' \<ominus> Num 1);;Call ''power'')])")
+  apply (cons "stf(Call ''power'', T\<^sub>3)")
+  apply (simp_all add: T\<^sub>3_def)
   apply (seq, skip)
   apply (simp add: sequent_valid_def)
   apply blast
@@ -258,17 +256,15 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>3 (''z'' := Num 1;;Call ''power'') : Rel (S
   apply jc_auto
   apply tfi_auto
   apply (cons "stf(SKIP, T\<^sub>3) \<Zcat> stf(''z'' := (Var ''z'' \<otimes> Var ''y''), T\<^sub>3)
-    \<Zcat> stf(Call ''subtract'', fmap_of_list [(''power'', IF Eq (Var ''x'') (Num 1)
-    THEN SKIP ELSE ''z'' := (Var ''z'' \<otimes> Var ''y'');;Call ''subtract'' FI),
-    (''subtract'', ''x'' := (Var ''x'' \<ominus> Num 1);;Call ''power'')])")
+    \<Zcat> stf(Call ''subtract'', T\<^sub>3)")
+  apply (simp_all add: T\<^sub>3_def)
   apply jc_auto
   apply call
   apply unfold
   apply seq
   apply assign
-  apply (cons "stf(Call ''power'', fmap_of_list [(''power'', IF Eq (Var ''x'') (Num 1)
-    THEN SKIP ELSE ''z'' := (Var ''z'' \<otimes> Var ''y'');;Call ''subtract'' FI),
-    (''subtract'', ''x'' := (Var ''x'' \<ominus> Num 1);;Call ''power'')])")
+  apply (cons "stf(Call ''power'', T\<^sub>3)")
+  apply (simp_all add: T\<^sub>3_def)
   apply jc_auto
   apply (simp add: sequent_valid_def)
   apply auto
