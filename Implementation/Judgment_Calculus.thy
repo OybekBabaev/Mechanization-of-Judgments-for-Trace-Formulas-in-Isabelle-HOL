@@ -49,13 +49,6 @@ lemma UNFOLD:
   shows "\<Gamma> \<turnstile>\<^sub>T \<S> : \<mu> X. \<phi>"
   using assms
   apply (simp add: judgment_valid_def sequent_valid_def)
-  apply (intro allI impI subsetI InterI)
-  apply (drule spec)
-  apply (erule impE)
-  apply assumption
-  apply (drule_tac x="\<V>" in spec)
-  apply (drule subsetD)
-  apply assumption
   apply (subst (asm) \<mu>_unf[symmetric])
   apply assumption
   by simp
