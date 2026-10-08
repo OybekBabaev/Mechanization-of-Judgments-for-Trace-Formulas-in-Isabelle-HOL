@@ -61,7 +61,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>d (Call ''down'') : stf(Call ''down'', T\<^
   apply (rule SKIP)
   apply tfi_auto
   apply (rule_tac \<phi>' =  "stf(SKIP, T\<^sub>d) \<Zcat> stf(''x'' := Var ''x'' \<ominus> Num 1, T\<^sub>d)
-     \<Zcat> stf(Call ''down'', T\<^sub>d)" in CONS, simp)
+     \<Zcat> stf(Call ''down'', T\<^sub>d)" in CONS)
   apply (simp_all add: T\<^sub>d_def)
   apply (rule SEQ)
   apply (rule SKIP)
