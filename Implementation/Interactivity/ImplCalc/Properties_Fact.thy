@@ -41,7 +41,7 @@ lemma "[stf Rec_fact] \<turnstile> [Pred (\<lambda>s. s\<langle>''x''\<rangle> \
   apply tfi_auto
   by (simp add: mult_le_0_iff)
 
-(* A slightly modified variant - the predicate comes on the left-hand side *)
+(* A slightly modified variant - the predicate comes on the sequent's left-hand side *)
 lemma "[stf Rec_fact, Pred (\<lambda>s. \<not> s\<langle>''x''\<rangle> \<le> 0)] \<turnstile> [\<mu> ''inc''. (Rel R_x_inc \<squnion> Rel R_x_inc \<Zcat> RVar ''inc'')]"
   apply (simp add: Rec_fact_def T\<^sub>f_def)
   apply tfi_auto
@@ -61,7 +61,7 @@ lemma "[stf Rec_fact_from_10] \<turnstile> [Pred (\<lambda>s. s\<langle>''x''\<r
   by (simp add: mult_le_0_iff)
 
 (* example 5a *)
-(* Same as above, but variable x set to 0 explicitly,
+(* Same as example 5, but variable x set to 0 explicitly,
    no predicate given - NOT DERIVABLE (cannot prove that n stays gte 1) *)
 lemma "[stf Rec_fact_from_10_alt] \<turnstile> [\<mu> ''combo''. (Rel R_combo \<squnion> Rel R_combo \<Zcat> RVar ''combo'')]"
   apply (simp add: Rec_fact_from_10_alt_def T\<^sub>f_def)

@@ -34,7 +34,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>d (Call ''down'') : (\<mu> ''dec''. (Rel R_
   by tfi_auto
 
 (* example 2 *)
-(* If variable x not negative to begin with, then call terminates - PROVEN 1 *)
+(* If variable x not negative to begin with, then call terminates - PROVEN *)
 lemma "[] \<turnstile>\<^sub>T\<^sub>d (Call ''down'') : (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Pred (\<lambda>s. s\<langle>''x''\<rangle> = 0))"
   apply (rule_tac \<phi>' = "(Rel Id) \<Zcat> (Pred (\<lambda>s. True) \<Zcat> Pred (\<lambda>s. s\<langle>''x''\<rangle> = 0))" in CONS)
   defer
@@ -55,23 +55,5 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>d (Call ''down'') : (Pred (\<lambda>s. s\<l
   apply skip
   apply (simp_all add: sequent_valid_def)
   by tfi_auto
-
-(* example 2 *)
-(* If variable x not negative to begin with, then call terminates - ABANDONED 2 *)
-lemma "[] \<turnstile>\<^sub>T\<^sub>d (Call ''down'') : (Rel Id \<Zcat> (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Pred (\<lambda>s. s\<langle>''x''\<rangle> = 0)))"
-  apply (simp add: T\<^sub>d_def)
-  apply jc_auto+
-  apply (cons "stf(SKIP;;SKIP, T\<^sub>d)")
-  apply jc_auto
-  apply tfi_auto
-  apply (cons "stf(SKIP, T\<^sub>d) \<Zcat> stf(''x'' := (Var ''x'' \<ominus> Num 1), T\<^sub>d)
-    \<Zcat> stf(SKIP, T\<^sub>d) \<Zcat> (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Pred (\<lambda>s. s\<langle>''x''\<rangle> = 0))")
-  apply jc_auto
-  apply (simp add: sequent_valid_def)+
-  apply tfi_auto
-  defer
-  apply close
-  apply arb1
-  oops
 
 end
