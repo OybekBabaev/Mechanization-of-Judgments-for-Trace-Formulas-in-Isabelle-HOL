@@ -47,12 +47,11 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
   apply tfi_auto
   apply (rule FPI_ALT)
   apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfr
   apply disj_r
   apply disj_l
   apply close
-  apply (rule CONJ_L, auto)
+  apply conj_l
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
       and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
                                     Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -69,7 +68,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                   Rel Trace_Formulas.Id \<Zcat>
                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                   Rel Trace_Formulas.Id \<Zcat> RVar ''odd''))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
+  apply close
   apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                    Rel Trace_Formulas.Id \<Zcat>
                    \<mu> ''odd''. (Pred (\<lambda>s. s\<langle>''x''\<rangle> = 0) \<sqinter>
@@ -133,14 +132,12 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                   Rel Trace_Formulas.Id \<Zcat> RVar ''odd''))]" in CH_ID, simp_all+)
   apply close
-  apply (rule UNFL)
-  apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfl
+  apply unfr
   apply disj_r
   apply disj_l
   apply close
-  apply (rule CONJ_L, auto)
+  apply conj_l
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
       and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
                                       Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -163,7 +160,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                   Rel Trace_Formulas.Id \<Zcat>
                                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                   Rel Trace_Formulas.Id \<Zcat> RVar ''odd'')))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
+  apply close
   apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                    Rel Trace_Formulas.Id \<Zcat> RVar ''even''"
        and \<Psi>s = "[Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -228,8 +225,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                   Rel Trace_Formulas.Id \<Zcat> RVar ''odd'')))]" in CH_ID, simp_all+)
   apply close
-  apply (rule_tac X = "''even''" in RVAR)
-  apply auto
+  apply rvar
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
       and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
     Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -251,14 +247,14 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
             Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0) \<sqinter>
             Rel Trace_Formulas.Id \<Zcat>
             Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat> Rel Trace_Formulas.Id \<Zcat> RVar ''odd'')))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
   apply tfi_auto
-  apply (rule FPI_ALT, auto)
-  apply (rule UNFR, auto)
+  apply (rule FPI_ALT)
+  apply auto
+  apply unfr
   apply disj_r
   apply disj_l
   apply close
-  apply (rule CONJ_L, auto)
+  apply conj_l
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
       and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
                                     Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -275,7 +271,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                   Rel Trace_Formulas.Id \<Zcat>
                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                   Rel Trace_Formulas.Id \<Zcat> RVar ''odd''))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
+  apply close
   apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                    Rel Trace_Formulas.Id \<Zcat>
                    \<mu> ''odd''. (Pred (\<lambda>s. s\<langle>''x''\<rangle> = 0) \<sqinter>
@@ -339,14 +335,12 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                   Rel Trace_Formulas.Id \<Zcat> RVar ''odd''))]" in CH_ID, simp_all+)
   apply close
-  apply (rule UNFL)
-  apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfl
+  apply unfr
   apply disj_r
   apply disj_l
   apply close
-  apply (rule CONJ_L, auto)
+  apply conj_l
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
     and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
                                       Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -369,7 +363,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                   Rel Trace_Formulas.Id \<Zcat>
                                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                   Rel Trace_Formulas.Id \<Zcat> RVar ''odd'')))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
+  apply close
   apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                    Rel Trace_Formulas.Id \<Zcat> RVar ''even''"
        and \<Psi>s = "[Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -434,8 +428,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                   Rel Trace_Formulas.Id \<Zcat> RVar ''odd'')))]" in CH_ID, simp_all+)
   apply close
-  apply (rule_tac X = "''even''" in RVAR)
-  apply auto
+  apply rvar
   apply disj_r
   apply disj_r
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
@@ -462,12 +455,13 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                            Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                            Rel Trace_Formulas.Id \<Zcat> RVar ''even'')))" in CONJ_R, simp+)
   apply tfi_auto
-  apply (rule FPI_ALT, auto)
-  apply (rule UNFR, auto)
+  apply (rule FPI_ALT)
+  apply auto
+  apply unfr
   apply disj_r
   apply disj_l
   apply close
-  apply (rule CONJ_L, auto)
+  apply conj_l
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
     and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
                                     Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -484,7 +478,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                   Rel Trace_Formulas.Id \<Zcat>
                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                   Rel Trace_Formulas.Id \<Zcat> RVar ''even''))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
+  apply close
   apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                    Rel Trace_Formulas.Id \<Zcat>
                    \<mu> ''even''. (Pred (\<lambda>s. s\<langle>''x''\<rangle> = 0) \<sqinter>
@@ -548,14 +542,12 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                   Rel Trace_Formulas.Id \<Zcat> RVar ''even''))]" in CH_ID, simp_all+)
   apply close
-  apply (rule UNFL)
-  apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfl
+  apply unfr
   apply disj_r
   apply disj_l
   apply close
-  apply (rule CONJ_L, auto)
+  apply conj_l
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
     and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
                                       Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -578,7 +570,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                  Rel Trace_Formulas.Id \<Zcat>
                                  Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                  Rel Trace_Formulas.Id \<Zcat> RVar ''even'')))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
+  apply close
   apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                    Rel Trace_Formulas.Id \<Zcat> RVar ''odd''"
     and \<Psi>s = "[Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -643,8 +635,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                  Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                  Rel Trace_Formulas.Id \<Zcat> RVar ''even'')))]" in CH_ID, simp_all+)
   apply close
-  apply (rule_tac X = "''odd''" in RVAR)
-  apply auto
+  apply rvar
   apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
      Rel Trace_Formulas.Id \<Zcat>
      \<mu> ''odd''. (Pred (\<lambda>s. s\<langle>''x''\<rangle> = 0) \<sqinter>
@@ -753,12 +744,13 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                            Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                            Rel Trace_Formulas.Id \<Zcat> RVar ''even'')))]" in CH_ID, simp_all+)
   apply close
-  apply (rule FPI_ALT, auto)
-  apply (rule UNFR, auto)
+  apply (rule FPI_ALT)
+  apply auto
+  apply unfr
   apply disj_r
   apply disj_l
   apply close
-  apply (rule CONJ_L, auto)
+  apply conj_l
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
     and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
                                     Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -775,7 +767,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                   Rel Trace_Formulas.Id \<Zcat>
                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                   Rel Trace_Formulas.Id \<Zcat> RVar ''even''))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
+  apply close
   apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                    Rel Trace_Formulas.Id \<Zcat>
                    \<mu> ''even''. (Pred (\<lambda>s. s\<langle>''x''\<rangle> = 0) \<sqinter>
@@ -839,14 +831,12 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                   Rel Trace_Formulas.Id \<Zcat> RVar ''even''))]" in CH_ID, simp_all+)
   apply close
-  apply (rule UNFL)
-  apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfl
+  apply unfr
   apply disj_r
   apply disj_l
   apply close
-  apply (rule CONJ_L, auto)
+  apply conj_l
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
     and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
                                       Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -869,7 +859,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                  Rel Trace_Formulas.Id \<Zcat>
                                  Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                  Rel Trace_Formulas.Id \<Zcat> RVar ''even'')))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
+  apply close
   apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                    Rel Trace_Formulas.Id \<Zcat> RVar ''odd''"
     and \<Psi>s = "[Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -933,9 +923,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                  Rel Trace_Formulas.Id \<Zcat>
                                  Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                  Rel Trace_Formulas.Id \<Zcat> RVar ''even'')))]" in CH_ID, simp_all+)
-  apply close
-  apply (rule_tac X = "''odd''" in RVAR)
-  by simp+
+  by tfi_auto
 
 (* the same, but with new proof automation *)
 
@@ -966,12 +954,11 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
   apply tfi_auto
   apply (rule FPI_ALT)
   apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfr
   apply disj_r
   apply disj_l
   apply close
-  apply (rule CONJ_L, auto)
+  apply conj_l
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
       and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
                                     Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -988,7 +975,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                   Rel Trace_Formulas.Id \<Zcat>
                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                   Rel Trace_Formulas.Id \<Zcat> RVar ''odd''))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
+  apply close
   apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                    Rel Trace_Formulas.Id \<Zcat>
                    \<mu> ''odd''. (Pred (\<lambda>s. s\<langle>''x''\<rangle> = 0) \<sqinter>
@@ -1052,14 +1039,12 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                   Rel Trace_Formulas.Id \<Zcat> RVar ''odd''))]" in CH_ID, simp_all+)
   apply close
-  apply (rule UNFL)
-  apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfl
+  apply unfr
   apply disj_r
   apply disj_l
   apply close
-  apply (rule CONJ_L, auto)
+  apply conj_l
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
       and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
                                       Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -1082,7 +1067,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                   Rel Trace_Formulas.Id \<Zcat>
                                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                   Rel Trace_Formulas.Id \<Zcat> RVar ''odd'')))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
+  apply close
   apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                    Rel Trace_Formulas.Id \<Zcat> RVar ''even''"
        and \<Psi>s = "[Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -1147,8 +1132,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                   Rel Trace_Formulas.Id \<Zcat> RVar ''odd'')))]" in CH_ID, simp_all+)
   apply close
-  apply (rule_tac X = "''even''" in RVAR)
-  apply auto
+  apply rvar
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
       and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
     Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -1170,14 +1154,15 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
         Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0) \<sqinter>
           Rel Trace_Formulas.Id \<Zcat>
             Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat> Rel Trace_Formulas.Id \<Zcat> RVar ''odd'')))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
+  apply close
   apply tfi_auto
-  apply (rule FPI_ALT, auto)
-  apply (rule UNFR, auto)
+  apply (rule FPI_ALT)
+  apply auto
+  apply unfr
   apply disj_r
   apply disj_l
   apply close
-  apply (rule CONJ_L, auto)
+  apply conj_l
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
       and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
                                     Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -1194,7 +1179,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                   Rel Trace_Formulas.Id \<Zcat>
                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                   Rel Trace_Formulas.Id \<Zcat> RVar ''odd''))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
+  apply close
   apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                    Rel Trace_Formulas.Id \<Zcat>
                    \<mu> ''odd''. (Pred (\<lambda>s. s\<langle>''x''\<rangle> = 0) \<sqinter>
@@ -1258,14 +1243,12 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                   Rel Trace_Formulas.Id \<Zcat> RVar ''odd''))]" in CH_ID, simp_all+)
   apply close
-  apply (rule UNFL)
-  apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfl
+  apply unfr
   apply disj_r
   apply disj_l
   apply close
-  apply (rule CONJ_L, auto)
+  apply conj_l
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
     and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
                                       Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -1288,7 +1271,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                   Rel Trace_Formulas.Id \<Zcat>
                                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                   Rel Trace_Formulas.Id \<Zcat> RVar ''odd'')))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
+  apply close
   apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                    Rel Trace_Formulas.Id \<Zcat> RVar ''even''"
        and \<Psi>s = "[Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -1353,8 +1336,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                   Rel Trace_Formulas.Id \<Zcat> RVar ''odd'')))]" in CH_ID, simp_all+)
   apply close
-  apply (rule_tac X = "''even''" in RVAR)
-  apply auto
+  apply rvar
   apply disj_r
   apply disj_r
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
@@ -1381,12 +1363,13 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                            Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                            Rel Trace_Formulas.Id \<Zcat> RVar ''even'')))" in CONJ_R, simp+)
   apply tfi_auto
-  apply (rule FPI_ALT, auto)
-  apply (rule UNFR, auto)
+  apply (rule FPI_ALT)
+  apply auto
+  apply unfr
   apply disj_r
   apply disj_l
   apply close
-  apply (rule CONJ_L, auto)
+  apply conj_l
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
     and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
                                     Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -1403,7 +1386,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                   Rel Trace_Formulas.Id \<Zcat>
                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                   Rel Trace_Formulas.Id \<Zcat> RVar ''even''))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
+  apply close
   apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                    Rel Trace_Formulas.Id \<Zcat>
                    \<mu> ''even''. (Pred (\<lambda>s. s\<langle>''x''\<rangle> = 0) \<sqinter>
@@ -1467,14 +1450,12 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                   Rel Trace_Formulas.Id \<Zcat> RVar ''even''))]" in CH_ID, simp_all+)
   apply close
-  apply (rule UNFL)
-  apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfl
+  apply unfr
   apply disj_r
   apply disj_l
   apply close
-  apply (rule CONJ_L, auto)
+  apply conj_l
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
     and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
                                       Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -1497,7 +1478,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                  Rel Trace_Formulas.Id \<Zcat>
                                  Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                  Rel Trace_Formulas.Id \<Zcat> RVar ''even'')))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
+  apply close
   apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                    Rel Trace_Formulas.Id \<Zcat> RVar ''odd''"
     and \<Psi>s = "[Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -1562,8 +1543,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                  Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                  Rel Trace_Formulas.Id \<Zcat> RVar ''even'')))]" in CH_ID, simp_all+)
   apply close
-  apply (rule_tac X = "''odd''" in RVAR)
-  apply auto
+  apply rvar
   apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
      Rel Trace_Formulas.Id \<Zcat>
      \<mu> ''odd''. (Pred (\<lambda>s. s\<langle>''x''\<rangle> = 0) \<sqinter>
@@ -1672,12 +1652,13 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                            Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                            Rel Trace_Formulas.Id \<Zcat> RVar ''even'')))]" in CH_ID, simp_all+)
   apply close
-  apply (rule FPI_ALT, auto)
-  apply (rule UNFR, auto)
+  apply (rule FPI_ALT)
+  apply auto
+  apply unfr
   apply disj_r
   apply disj_l
   apply close
-  apply (rule CONJ_L, auto)
+  apply conj_l
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
     and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
                                     Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -1694,7 +1675,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                   Rel Trace_Formulas.Id \<Zcat>
                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                   Rel Trace_Formulas.Id \<Zcat> RVar ''even''))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
+  apply close
   apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                    Rel Trace_Formulas.Id \<Zcat>
                    \<mu> ''even''. (Pred (\<lambda>s. s\<langle>''x''\<rangle> = 0) \<sqinter>
@@ -1758,14 +1739,12 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                   Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                   Rel Trace_Formulas.Id \<Zcat> RVar ''even''))]" in CH_ID, simp_all+)
   apply close
-  apply (rule UNFL)
-  apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfl
+  apply unfr
   apply disj_r
   apply disj_l
   apply close
-  apply (rule CONJ_L, auto)
+  apply conj_l
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 0)"
     and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
                                       Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -1788,7 +1767,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                  Rel Trace_Formulas.Id \<Zcat>
                                  Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                  Rel Trace_Formulas.Id \<Zcat> RVar ''even'')))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
+  apply close
   apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                    Rel Trace_Formulas.Id \<Zcat> RVar ''odd''"
     and \<Psi>s = "[Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -1852,8 +1831,6 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : stf(Call ''even'', T\<^
                                  Rel Trace_Formulas.Id \<Zcat>
                                  Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
                                  Rel Trace_Formulas.Id \<Zcat> RVar ''even'')))]" in CH_ID, simp_all+)
-  apply close
-  apply (rule_tac X = "''odd''" in RVAR)
-  by simp+
+  by tfi_auto
 
 end

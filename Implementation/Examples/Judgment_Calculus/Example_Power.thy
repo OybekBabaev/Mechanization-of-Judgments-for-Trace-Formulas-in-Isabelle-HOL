@@ -39,12 +39,11 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>3 (''z'' := Num 1;;Call ''power'') : Rel (S
   apply tfi_auto
   apply (rule FPI_ALT)
   apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfr
   apply disj_r
   apply disj_l
   apply close
-  apply (rule CONJ_L, auto)
+  apply conj_l
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 1)" and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
    Rel (Sb ''z'' (Var ''z'' \<otimes> Var ''y'')) \<Zcat>
    Rel Trace_Formulas.Id \<Zcat>
@@ -56,7 +55,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>3 (''z'' := Num 1;;Call ''power'') : Rel (S
                                     Rel Trace_Formulas.Id \<Zcat>
                                     Rel (Sb ''z'' (Var ''z'' \<otimes> Var ''y'')) \<Zcat>
                                     Rel Trace_Formulas.Id \<Zcat> RVar ''subtract''))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
+  apply close
   apply (rule_tac \<Phi> = "Rel (Sb ''z'' (Var ''z'' \<otimes> Var ''y'')) \<Zcat>
                                Rel Trace_Formulas.Id \<Zcat>
                                \<mu> ''subtract''. (Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -98,10 +97,8 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>3 (''z'' := Num 1;;Call ''power'') : Rel (S
          Rel (Sb ''z'' (Var ''z'' \<otimes> Var ''y'')) \<Zcat>
          Rel Trace_Formulas.Id \<Zcat> RVar ''subtract''))]" in CH_ID, simp_all)
   apply close
-  apply (rule UNFL)
-  apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfl
+  apply unfr
   apply (rule_tac \<Phi> = "Rel Trace_Formulas.Id \<Zcat> RVar ''power''"
       and \<Psi>s = "[Rel Trace_Formulas.Id \<Zcat>
         \<mu> ''power''. (Pred (\<lambda>s. s\<langle>''x''\<rangle> = 1) \<sqinter> Rel Trace_Formulas.Id \<Zcat> Rel Trace_Formulas.Id \<squnion>
@@ -134,8 +131,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>3 (''z'' := Num 1;;Call ''power'') : Rel (S
      Rel (Sb ''z'' (Var ''z'' \<otimes> Var ''y'')) \<Zcat>
      Rel Trace_Formulas.Id \<Zcat> RVar ''subtract'')))]" in CH_ID, simp_all+)
   apply close
-  apply (rule_tac X = "''power''" in RVAR)
-  apply auto
+  apply rvar
   apply disj_r
   apply disj_r
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 1)"
@@ -155,8 +151,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>3 (''z'' := Num 1;;Call ''power'') : Rel (S
   apply tfi_auto
   apply (rule FPI_ALT)
   apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfr
   apply (rule_tac \<Phi> = "Rel Trace_Formulas.Id \<Zcat>
                                \<mu> ''power''. (Pred (\<lambda>s. s\<langle>''x''\<rangle> = 1) \<sqinter>
           Rel Trace_Formulas.Id \<Zcat> Rel Trace_Formulas.Id \<squnion>
@@ -193,15 +188,12 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>3 (''z'' := Num 1;;Call ''power'') : Rel (S
           (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
          Rel Trace_Formulas.Id \<Zcat> RVar ''power''))]" in CH_ID, simp_all+)
   apply close
-  apply (rule UNFL)
-  apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfl
+  apply unfr
   apply tfi_auto
   apply (rule FPI_ALT)
   apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfr
   apply (rule_tac \<Phi> = "Rel Trace_Formulas.Id \<Zcat>
                                \<mu> ''power''. (Pred (\<lambda>s. s\<langle>''x''\<rangle> = 1) \<sqinter>
           Rel Trace_Formulas.Id \<Zcat> Rel Trace_Formulas.Id \<squnion>
@@ -238,10 +230,8 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>3 (''z'' := Num 1;;Call ''power'') : Rel (S
           (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
          Rel Trace_Formulas.Id \<Zcat> RVar ''power''))]" in CH_ID, simp_all+)
   apply close
-  apply (rule UNFL)
-  apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfl
+  apply unfr
   by tfi_auto
 
 (* the same, but with new proof automation *)
@@ -260,23 +250,22 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>3 (''z'' := Num 1;;Call ''power'') : Rel (S
   apply (simp_all add: T\<^sub>3_def)
   apply jc_auto
   apply call
-  apply unfold
+  apply jc_auto
   apply seq
   apply assign
   apply (cons "stf(Call ''power'', T\<^sub>3)")
   apply (simp_all add: T\<^sub>3_def)
   apply jc_auto
   apply (simp add: sequent_valid_def)
-  apply auto
+  apply blast
   apply tfi_auto
   apply (rule FPI_ALT)
   apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfr
   apply disj_r
   apply disj_l
   apply close
-  apply (rule CONJ_L, auto)
+  apply conj_l
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 1)" and \<Psi>\<^sub>2 = "Rel Trace_Formulas.Id \<Zcat>
    Rel (Sb ''z'' (Var ''z'' \<otimes> Var ''y'')) \<Zcat>
    Rel Trace_Formulas.Id \<Zcat>
@@ -288,7 +277,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>3 (''z'' := Num 1;;Call ''power'') : Rel (S
                                     Rel Trace_Formulas.Id \<Zcat>
                                     Rel (Sb ''z'' (Var ''z'' \<otimes> Var ''y'')) \<Zcat>
                                     Rel Trace_Formulas.Id \<Zcat> RVar ''subtract''))" in CONJ_R, simp+)
-  apply (rule CLOSE, simp+)
+  apply close
   apply (rule_tac \<Phi> = "Rel (Sb ''z'' (Var ''z'' \<otimes> Var ''y'')) \<Zcat>
                                Rel Trace_Formulas.Id \<Zcat>
                                \<mu> ''subtract''. (Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
@@ -330,10 +319,8 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>3 (''z'' := Num 1;;Call ''power'') : Rel (S
          Rel (Sb ''z'' (Var ''z'' \<otimes> Var ''y'')) \<Zcat>
          Rel Trace_Formulas.Id \<Zcat> RVar ''subtract''))]" in CH_ID, simp_all)
   apply close
-  apply (rule UNFL)
-  apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfl
+  apply unfr
   apply (rule_tac \<Phi> = "Rel Trace_Formulas.Id \<Zcat> RVar ''power''"
       and \<Psi>s = "[Rel Trace_Formulas.Id \<Zcat>
         \<mu> ''power''. (Pred (\<lambda>s. s\<langle>''x''\<rangle> = 1) \<sqinter> Rel Trace_Formulas.Id \<Zcat> Rel Trace_Formulas.Id \<squnion>
@@ -366,8 +353,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>3 (''z'' := Num 1;;Call ''power'') : Rel (S
      Rel (Sb ''z'' (Var ''z'' \<otimes> Var ''y'')) \<Zcat>
      Rel Trace_Formulas.Id \<Zcat> RVar ''subtract'')))]" in CH_ID, simp_all+)
   apply close
-  apply (rule_tac X = "''power''" in RVAR)
-  apply auto
+  apply rvar
   apply disj_r
   apply disj_r
   apply (rule_tac \<Psi>\<^sub>1 = "Pred (\<lambda>s. s\<langle>''x''\<rangle> \<noteq> 1)"
@@ -387,8 +373,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>3 (''z'' := Num 1;;Call ''power'') : Rel (S
   apply tfi_auto
   apply (rule FPI_ALT)
   apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfr
   apply (rule_tac \<Phi> = "Rel Trace_Formulas.Id \<Zcat>
                                \<mu> ''power''. (Pred (\<lambda>s. s\<langle>''x''\<rangle> = 1) \<sqinter>
           Rel Trace_Formulas.Id \<Zcat> Rel Trace_Formulas.Id \<squnion>
@@ -425,15 +410,12 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>3 (''z'' := Num 1;;Call ''power'') : Rel (S
           (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
          Rel Trace_Formulas.Id \<Zcat> RVar ''power''))]" in CH_ID, simp_all+)
   apply close
-  apply (rule UNFL)
-  apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfl
+  apply unfr
   apply tfi_auto
   apply (rule FPI_ALT)
   apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfr
   apply (rule_tac \<Phi> = "Rel Trace_Formulas.Id \<Zcat>
                                \<mu> ''power''. (Pred (\<lambda>s. s\<langle>''x''\<rangle> = 1) \<sqinter>
           Rel Trace_Formulas.Id \<Zcat> Rel Trace_Formulas.Id \<squnion>
@@ -470,10 +452,8 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>3 (''z'' := Num 1;;Call ''power'') : Rel (S
           (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
          Rel Trace_Formulas.Id \<Zcat> RVar ''power''))]" in CH_ID, simp_all+)
   apply close
-  apply (rule UNFL)
-  apply auto
-  apply (rule UNFR)
-  apply auto
+  apply unfl
+  apply unfr
   by tfi_auto
 
 end

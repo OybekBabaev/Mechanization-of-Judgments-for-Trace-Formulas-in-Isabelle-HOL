@@ -36,32 +36,8 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>t (Call ''nt'') : (\<mu> ''dec''. (Rel R_x_
   apply (simp add: sequent_valid_def)
   apply jc_auto
   apply simp
-  apply disj_r
-  apply unfr
-  apply disj_r
-  apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
-     (Rel Trace_Formulas.Id \<Zcat> \<mu> ''dec''. (Rel R_x_dec \<squnion> Rel R_x_dec \<Zcat> RVar ''dec'')) \<Zcat>
-     Rel (Sb ''y''
-           (Var ''y'' \<oplus>
-            Num 1))" and \<Psi>s = "[\<mu> ''dec''. (Rel R_x_dec \<squnion> Rel R_x_dec \<Zcat> RVar ''dec'')]" in CH_ID)
-  apply simp_all
-  apply rel
-  apply unfr
-  apply disj_r
-  apply (rule_tac \<Phi> = "(Rel Trace_Formulas.Id \<Zcat> \<mu> ''dec''. (Rel R_x_dec \<squnion> Rel R_x_dec \<Zcat> RVar ''dec'')) \<Zcat>
-     Rel (Sb ''y''
-           (Var ''y'' \<oplus>
-            Num 1))" and \<Psi>s = "[\<mu> ''dec''. (Rel R_x_dec \<squnion> Rel R_x_dec \<Zcat> RVar ''dec'')]" in CH_UPD)
-  apply simp_all+
-  apply rel
   defer
-  apply unfr
-  apply disj_r
-  apply (rule_tac \<Phi> = "\<mu> ''dec''. (Rel R_x_dec \<squnion> Rel R_x_dec \<Zcat> RVar ''dec'')" and \<Psi>s = "[\<mu> ''dec''. (Rel R_x_dec \<squnion> Rel R_x_dec \<Zcat> RVar ''dec'')]" in CH_ID)
-  apply simp_all
-  apply rel
-  apply close
-  apply tfi_auto (*CH-DISJ-L must have been applied here *)
+  apply tfi_auto
   oops
 
 (* example 12 *)
@@ -82,31 +58,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>t (Call ''nt'') : (\<mu> ''inc''. (Rel R_y_
   apply jc_auto
   apply simp
   defer
-  apply unfr
-  apply disj_r
-  apply (rule_tac \<Phi> = "\<mu> ''inc''. (Rel R_y_inc \<squnion> Rel R_y_inc \<Zcat> RVar ''inc'')" and \<Psi>s = "[\<mu> ''inc''. (Rel R_y_inc \<squnion> Rel R_y_inc \<Zcat> RVar ''inc'')]" in CH_ID)
-  apply simp_all
-  apply rel
-  apply close
-  apply disj_r
-  apply unfr
-  apply disj_r
-  apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
-     (Rel Trace_Formulas.Id \<Zcat> \<mu> ''inc''. (Rel R_y_inc \<squnion> Rel R_y_inc \<Zcat> RVar ''inc'')) \<Zcat>
-     Rel (Sb ''y''
-           (Var ''y'' \<oplus>
-            Num 1))" and \<Psi>s = "[\<mu> ''inc''. (Rel R_y_inc \<squnion> Rel R_y_inc \<Zcat> RVar ''inc'')]" in CH_ID)
-  apply simp_all
-  apply rel
-  apply unfr
-  apply disj_r
-  apply (rule_tac \<Phi> = "(Rel Trace_Formulas.Id \<Zcat> \<mu> ''inc''. (Rel R_y_inc \<squnion> Rel R_y_inc \<Zcat> RVar ''inc'')) \<Zcat>
-     Rel (Sb ''y''
-           (Var ''y'' \<oplus>
-            Num 1))" and \<Psi>s = "[\<mu> ''inc''. (Rel R_y_inc \<squnion> Rel R_y_inc \<Zcat> RVar ''inc'')]" in CH_UPD)
-  apply simp_all+
-  apply rel
-  apply tfi_auto (* CH-DISJ-L must have been used here *)
+  apply tfi_auto
   oops
 
 end

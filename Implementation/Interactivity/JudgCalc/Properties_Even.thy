@@ -37,7 +37,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (''y'' := Num 0;;Call ''even'') : (\<mu> 
   apply jc_auto
   apply (cons "stf(''y'' := Num 1, T\<^sub>e)")
   apply jc_auto
-  apply auto
+  apply simp
   apply unfr
   apply disj_r
   apply rel
@@ -49,7 +49,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (''y'' := Num 0;;Call ''even'') : (\<mu> 
   apply jc_auto
   apply (cons "stf(''y'' := Num 0, T\<^sub>e)")
   apply jc_auto
-  apply auto
+  apply simp
   apply unfr
   apply disj_r
   apply rel
@@ -58,7 +58,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (''y'' := Num 0;;Call ''even'') : (\<mu> 
     \<Zcat> (\<mu> ''bin''. (Rel R_y_bin \<squnion> Rel R_y_bin \<Zcat> RVar ''bin''))")
   apply jc_auto
   apply (simp add: sequent_valid_def)
-  apply auto
+  apply blast
   prefer 3
   apply disj_r
   apply unfr
@@ -167,7 +167,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (''y'' := Num 0;;Call ''even'') : (\<mu> 
 
 (* example 7 *)
 (* If variable x not negative to begin with,
-   then y eventually becomes 1 or 0 - ABANDONED 1 (without cons as first step) *)
+   then y eventually becomes 1 or 0 - PROVEN *)
 lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : (Rel Id \<Zcat>
     (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin))"
   apply (simp add: T\<^sub>e_def)
@@ -175,9 +175,6 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : (Rel Id \<Zcat>
   apply (cons "stf(SKIP;;''y'' := Num 1, T\<^sub>e)")
   apply jc_auto
   apply simp
-  apply disj_r+
-  apply (rule_tac \<Phi> = "Rel (Sb ''y'' (Num 1))"
-    and \<Psi>s = "[Rel R_y_bin]" in CH_ID, simp_all+)
   apply tfi_auto
   apply (cons "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := (Var ''x'' \<ominus> Num 1), T\<^sub>e) \<Zcat> stf(SKIP, T\<^sub>e)
      \<Zcat> (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin)")
@@ -185,154 +182,21 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : (Rel Id \<Zcat>
   apply (cons "stf(SKIP;;''y'' := Num 0, T\<^sub>e)")
   apply jc_auto
   apply simp
-  apply disj_r+
-  apply (rule_tac \<Phi> = "Rel (Sb ''y'' (Num 0))"
-    and \<Psi>s = "[Rel R_y_bin]" in CH_ID, simp_all+)
   apply tfi_auto
   apply (cons "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := (Var ''x'' \<ominus> Num 1), T\<^sub>e) \<Zcat> stf(SKIP, T\<^sub>e)
      \<Zcat> (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin)")
   apply jc_auto
-    apply (simp add: sequent_valid_def)+
-  apply auto
-  apply disj_r+
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
-     Rel Trace_Formulas.Id \<Zcat>
-     (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_y_bin)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_ID, simp_all)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel Trace_Formulas.Id \<Zcat>
-     (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_y_bin)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_UPD, simp_all+)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "(Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_y_bin)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_ID, simp_all)
-  apply close
-  apply disj_l
-  defer
-  apply close
-  apply disj_r+
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
-     Rel Trace_Formulas.Id \<Zcat>
-     (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_y_bin)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_ID, simp_all)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel Trace_Formulas.Id \<Zcat>
-     (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_y_bin)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_UPD, simp_all+)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "(Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_y_bin)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_ID, simp_all)
-  apply close
-  apply disj_l
-  defer
-  apply close
-  apply arb1
-  defer
-  apply arb1
-  oops
-
-(* example 7 *)
-(* If variable x not negative to begin with,
-   then y eventually becomes 1 or 0 - ABANDONED 2 (with cons as first step) *)
-lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : (Rel Id \<Zcat>
-    (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin))"
-  apply (rule_tac \<phi>' = "Rel Id \<Zcat> Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin" in CONS)
-  apply (simp add: T\<^sub>e_def)
-  apply jc_auto+
-  apply (cons "stf(SKIP;;''y'' := Num 1, T\<^sub>e)")
-  apply jc_auto
-  apply simp
-  apply disj_r+
-  apply (rule_tac \<Phi> = "Rel (Sb ''y'' (Num 1))"
-    and \<Psi>s = "[Rel R_y_bin]" in CH_ID, simp_all+)
+  apply (simp add: sequent_valid_def)+
+  apply blast
   apply tfi_auto
-  apply (cons "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := (Var ''x'' \<ominus> Num 1), T\<^sub>e) \<Zcat> stf(SKIP, T\<^sub>e)
-     \<Zcat> (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin)")
-  apply jc_auto+
-  apply (cons "stf(SKIP;;''y'' := Num 0, T\<^sub>e)")
-  apply jc_auto
-  apply simp
-  apply disj_r+
-  apply (rule_tac \<Phi> = "Rel (Sb ''y'' (Num 0))"
-    and \<Psi>s = "[Rel R_y_bin]" in CH_ID, simp_all+)
-  apply tfi_auto
-  apply (cons "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := (Var ''x'' \<ominus> Num 1), T\<^sub>e) \<Zcat> stf(SKIP, T\<^sub>e)
-     \<Zcat> (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin)")
-  apply jc_auto
-    apply (simp add: sequent_valid_def)+
-  apply auto
-  apply disj_r+
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
-     Rel Trace_Formulas.Id \<Zcat>
-     (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_y_bin)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_ID, simp_all)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel Trace_Formulas.Id \<Zcat>
-     (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_y_bin)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_UPD, simp_all+)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "(Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_y_bin)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_ID, simp_all)
-  apply close
-  apply disj_l
   defer
-  apply close
-  apply disj_r+
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
-     Rel Trace_Formulas.Id \<Zcat>
-     (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_y_bin)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_ID, simp_all)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel Trace_Formulas.Id \<Zcat>
-     (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_y_bin)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_UPD, simp_all+)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "(Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_y_bin)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_ID, simp_all)
-  apply close
-  apply disj_l
-  defer
-  apply close
-  apply (rule_tac \<Phi> = "(Pred (\<lambda>s. True) \<Zcat>  Rel R_y_bin)"
-    and \<Psi>s = "[(Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin)]" in CH_ID, simp_all)
   apply tfi_auto
-  oops
+  defer
+  apply tfi_auto
+  apply (simp add: Trace_Formula_Implication.sequent_valid_def)
+  apply fastforce
+  apply (simp add: Trace_Formula_Implication.sequent_valid_def)
+  by fastforce
 
 (* example 8 *)
 (* If variable x not negative to begin with,
@@ -366,47 +230,12 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : (Pred (\<lambda>s. s\<l
      \<Zcat> Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin")
   apply jc_auto
   apply (simp add: sequent_valid_def)+
-  apply auto
-  apply disj_r+
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
-     Rel Trace_Formulas.Id \<Zcat>
-     Pred (\<lambda>s. True) \<Zcat>
-     Rel R_y_bin"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_ID, simp_all)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel Trace_Formulas.Id \<Zcat>
-     Pred (\<lambda>s. True) \<Zcat>
-     Rel R_y_bin"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_UPD, simp_all+)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_ID, simp_all)
-  apply close+
-  apply disj_r+
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
-     Rel Trace_Formulas.Id \<Zcat>
-     Pred (\<lambda>s. True) \<Zcat>
-     Rel R_y_bin"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_ID, simp_all)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel Trace_Formulas.Id \<Zcat>
-     Pred (\<lambda>s. True) \<Zcat>
-     Rel R_y_bin"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_UPD, simp_all+)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_ID, simp_all)
-  by close+
+  apply blast
+  by tfi_auto
 
 (* example 9 *)
 (* If variable x not negative to begin with,
-   then y eventually becomes 1 or 0 once x reaches 0 - ABANDONED *)
+   then y eventually becomes 1 or 0 once x reaches 0 - PROVEN *)
 lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Rel R_finale)"
   apply (rule_tac \<phi>' = "Rel Id \<Zcat> Pred (\<lambda>s. True) \<Zcat> Rel R_finale" in CONS)
   apply (simp add: T\<^sub>e_def)
@@ -414,84 +243,24 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : (Pred (\<lambda>s. s\<l
   apply (cons "stf(SKIP;;''y'' := Num 1, T\<^sub>e)")
   apply jc_auto
   apply simp
-  apply disj_r+
-  apply (rule_tac \<Phi> = "Rel (Sb ''y'' (Num 1))"
-    and \<Psi>s = "[Rel R_finale]" in CH_ID, simp_all+)
   apply tfi_auto
   apply (cons "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := (Var ''x'' \<ominus> Num 1), T\<^sub>e) \<Zcat> stf(SKIP, T\<^sub>e)
-     \<Zcat> (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Rel R_finale)")
+     \<Zcat> (Pred (\<lambda>s. True) \<Zcat> Rel R_finale)")
   apply jc_auto+
   apply (cons "stf(SKIP;;''y'' := Num 0, T\<^sub>e)")
   apply jc_auto
   apply simp
-  apply disj_r+
-  apply (rule_tac \<Phi> = "Rel (Sb ''y'' (Num 0))"
-    and \<Psi>s = "[Rel R_finale]" in CH_ID, simp_all+)
   apply tfi_auto
   apply (cons "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := (Var ''x'' \<ominus> Num 1), T\<^sub>e) \<Zcat> stf(SKIP, T\<^sub>e)
-     \<Zcat> (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Rel R_finale)")
+     \<Zcat> (Pred (\<lambda>s. True) \<Zcat> Rel R_finale)")
   apply jc_auto
-  apply (simp add: sequent_valid_def)+
-  apply auto
-  apply disj_r+
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
-     Rel Trace_Formulas.Id \<Zcat>
-     (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_finale)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_finale]" in CH_ID, simp_all)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel Trace_Formulas.Id \<Zcat>
-     (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_finale)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_finale]" in CH_UPD, simp_all+)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "(Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_finale)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_finale]" in CH_ID, simp_all)
-  apply close
-  apply disj_l
-  defer
-  apply close
-  apply disj_r+
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
-     Rel Trace_Formulas.Id \<Zcat>
-     (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_finale)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_finale]" in CH_ID, simp_all)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel Trace_Formulas.Id \<Zcat>
-     (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_finale)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_finale]" in CH_UPD, simp_all+)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "(Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_finale)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_finale]" in CH_ID, simp_all)
-  apply close
-  apply disj_l
-  defer
-  apply close
-  apply tfi_auto
-  apply arb1
-  defer
-  apply arb1
-  oops
+  apply (simp add: sequent_valid_def)
+  apply blast
+  by tfi_auto
 
 (* example 10 *)
 (* If variable x not negative to begin with,
-   then y eventually becomes 1 or 0 once x reaches 0 - ABANDONED *)
+   then y eventually becomes 1 or 0 once x reaches 0 - PROVEN *)
 lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : (Rel Id \<Zcat> (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Rel R_finale))"
   apply (simp add: T\<^sub>e_def)
   apply jc_auto+
@@ -515,61 +284,16 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : (Rel Id \<Zcat> (Pred (
   apply (cons "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := (Var ''x'' \<ominus> Num 1), T\<^sub>e) \<Zcat> stf(SKIP, T\<^sub>e)
      \<Zcat> (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Rel R_finale)")
   apply jc_auto
-    apply (simp add: sequent_valid_def)+
-  apply auto
-  apply disj_r+
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
-     Rel Trace_Formulas.Id \<Zcat>
-     (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_finale)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_finale]" in CH_ID, simp_all)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel Trace_Formulas.Id \<Zcat>
-     (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_finale)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_finale]" in CH_UPD, simp_all+)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "(Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_finale)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_finale]" in CH_ID, simp_all)
-  apply close
-  apply disj_l
+  apply (simp add: sequent_valid_def)+
+  apply blast
+  apply tfi_auto
   defer
-  apply close
-  apply disj_r+
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<ominus> Num 1)) \<Zcat>
-     Rel Trace_Formulas.Id \<Zcat>
-     (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_finale)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_finale]" in CH_ID, simp_all)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "Rel Trace_Formulas.Id \<Zcat>
-     (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_finale)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_finale]" in CH_UPD, simp_all+)
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "(Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion>
-      Pred (\<lambda>s. True) \<Zcat>
-      Rel R_finale)"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_finale]" in CH_ID, simp_all)
-  apply close
-  apply disj_l
+  apply tfi_auto
   defer
-  apply close
-  apply arb1
-  defer
-  apply arb1
-  oops
+  apply tfi_auto
+  apply (simp add: Trace_Formula_Implication.sequent_valid_def)
+  apply fastforce
+  apply (simp add: Trace_Formula_Implication.sequent_valid_def)
+  by fastforce
 
 end
