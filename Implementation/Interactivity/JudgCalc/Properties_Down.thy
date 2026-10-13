@@ -22,7 +22,6 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>d (Call ''down'') : (\<mu> ''dec''. (Rel R_
   apply tfi_auto
   apply (rule CALL)
   apply (simp add: T\<^sub>d_def)+
-  apply unfold
   apply jc_auto
   apply (cons "stf(SKIP;;SKIP, T\<^sub>d)")
   apply jc_auto
@@ -47,12 +46,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>d (Call ''down'') : (Pred (\<lambda>s. s\<l
   apply tfi_auto
   apply (cons "stf(SKIP, T\<^sub>d) \<Zcat> stf(''x'' := (Var ''x'' \<ominus> Num 1), T\<^sub>d)
     \<Zcat> stf(SKIP, T\<^sub>d) \<Zcat> (Pred (\<lambda>s. True) \<Zcat> Pred (\<lambda>s. s\<langle>''x''\<rangle> = 0))")
-  apply seq
-  apply skip
-  apply seq
-  apply assign
-  apply seq
-  apply skip
+  apply jc_auto
   apply (simp_all add: sequent_valid_def)
   by tfi_auto
 
