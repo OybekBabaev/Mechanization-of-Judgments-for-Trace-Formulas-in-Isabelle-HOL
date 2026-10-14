@@ -111,7 +111,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (''y'' := Num 0;;Call ''even'') : (\<mu> 
      and \<Psi>s = "[\<mu> ''bin''. (Rel R_y_bin \<squnion>
                   Rel R_y_bin \<Zcat>
                   RVar
-                   ''bin'')]" in CH_UPD, simp_all+)
+                   ''bin'')]" in CH_UPD, simp_all)
   defer
   apply unfr
   apply disj_r
@@ -149,7 +149,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (''y'' := Num 0;;Call ''even'') : (\<mu> 
      and \<Psi>s = "[\<mu> ''bin''. (Rel R_y_bin \<squnion>
                   Rel R_y_bin \<Zcat>
                   RVar
-                   ''bin'')]" in CH_UPD, simp_all+)
+                   ''bin'')]" in CH_UPD, simp_all)
   defer
   apply unfr
   apply disj_r
@@ -162,14 +162,13 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (''y'' := Num 0;;Call ''even'') : (\<mu> 
                   RVar
                    ''bin'')]" in CH_ID, simp_all)
   defer
-  apply close
+  apply tfi_auto
   oops
 
 (* example 7 *)
 (* If variable x not negative to begin with,
    then y eventually becomes 1 or 0 - PROVEN *)
-lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : (Rel Id \<Zcat>
-    (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin))"
+lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : (Rel Id \<Zcat> (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin))"
   apply (simp add: T\<^sub>e_def)
   apply jc_auto+
   apply (cons "stf(SKIP;;''y'' := Num 1, T\<^sub>e)")
@@ -204,17 +203,12 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : (Rel Id \<Zcat>
 lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin)"
   apply (rule_tac \<phi>' = "Rel Id \<Zcat> Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin" in CONS)
   defer
-  apply disj_r
-  apply arb2
-  apply close
+  apply tfi_auto
   apply (simp add: T\<^sub>e_def)
   apply jc_auto+
   apply (cons "stf(SKIP;;''y'' := Num 1, T\<^sub>e)")
   apply jc_auto
   apply simp
-  apply disj_r+
-  apply (rule_tac \<Phi> = "Rel (Sb ''y'' (Num 1))"
-    and \<Psi>s = "[Rel R_y_bin]" in CH_ID, simp_all+)
   apply tfi_auto
   apply (cons "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := (Var ''x'' \<ominus> Num 1), T\<^sub>e) \<Zcat> stf(SKIP, T\<^sub>e)
      \<Zcat> Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin")
@@ -222,14 +216,11 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : (Pred (\<lambda>s. s\<l
   apply (cons "stf(SKIP;;''y'' := Num 0, T\<^sub>e)")
   apply jc_auto
   apply simp
-  apply disj_r+
-  apply (rule_tac \<Phi> = "Rel (Sb ''y'' (Num 0))"
-    and \<Psi>s = "[Rel R_y_bin]" in CH_ID, simp_all+)
   apply tfi_auto
   apply (cons "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := (Var ''x'' \<ominus> Num 1), T\<^sub>e) \<Zcat> stf(SKIP, T\<^sub>e)
      \<Zcat> Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin")
   apply jc_auto
-  apply (simp add: sequent_valid_def)+
+  apply (simp add: sequent_valid_def)
   apply blast
   by tfi_auto
 
@@ -267,9 +258,6 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : (Rel Id \<Zcat> (Pred (
   apply (cons "stf(SKIP;;''y'' := Num 1, T\<^sub>e)")
   apply jc_auto
   apply simp
-  apply disj_r+
-  apply (rule_tac \<Phi> = "Rel (Sb ''y'' (Num 1))"
-    and \<Psi>s = "[Rel R_finale]" in CH_ID, simp_all+)
   apply tfi_auto
   apply (cons "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := (Var ''x'' \<ominus> Num 1), T\<^sub>e) \<Zcat> stf(SKIP, T\<^sub>e)
      \<Zcat> (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Rel R_finale)")
@@ -277,9 +265,6 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : (Rel Id \<Zcat> (Pred (
   apply (cons "stf(SKIP;;''y'' := Num 0, T\<^sub>e)")
   apply jc_auto
   apply simp
-  apply disj_r+
-  apply (rule_tac \<Phi> = "Rel (Sb ''y'' (Num 0))"
-    and \<Psi>s = "[Rel R_finale]" in CH_ID, simp_all+)
   apply tfi_auto
   apply (cons "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := (Var ''x'' \<ominus> Num 1), T\<^sub>e) \<Zcat> stf(SKIP, T\<^sub>e)
      \<Zcat> (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Rel R_finale)")

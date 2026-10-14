@@ -65,14 +65,16 @@ lemma "\<Gamma> \<turnstile>\<^sub>T (IF (Eq (Var ''z'') (Num 0)) THEN (''x'' :=
 lemma "\<Gamma> \<turnstile>\<^sub>T (IF (Eq (Var ''z'') (Num 0)) THEN (''x'' := Num 4);;(''y'' := Num 4) ELSE SKIP FI)
         : stf(IF (Eq (Var ''z'') (Num 0)) THEN (''x'' := Num 4);;(''y'' := Num 4) ELSE SKIP FI, T)"
   apply (rule IF)
-  apply (rule_tac \<phi>' = "stf (SKIP;;(''x'' := Num 4);;(''y'' := Num 4), T)" in CONS, simp)
+  apply (rule_tac \<phi>' = "stf (SKIP;;(''x'' := Num 4);;(''y'' := Num 4), T)" in CONS)
+  apply simp
   apply (rule SEQ)
   apply (rule SKIP)
   apply (rule SEQ)
   apply (rule ASSIGN)
   apply (rule ASSIGN)
   defer
-  apply (rule_tac \<phi>' = "stf (SKIP;;SKIP, T)" in CONS, simp)
+  apply (rule_tac \<phi>' = "stf (SKIP;;SKIP, T)" in CONS)
+  apply simp
   apply (rule SEQ)
   apply (rule SKIP)
   apply (rule SKIP)

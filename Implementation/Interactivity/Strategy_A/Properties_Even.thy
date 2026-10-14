@@ -107,11 +107,6 @@ lemma "[stf Rec_even] \<turnstile> [Rel Id \<Zcat> (Pred (\<lambda>s. s\<langle>
   apply (rule_tac \<Phi> = "Rel Trace_Formulas.Id \<Zcat> RVar ''even''"
     and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_UPD)
   apply simp_all+
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "RVar ''even''"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_ID)
-  apply simp_all
   by tfi_auto
 
 (* example 8 *)
@@ -181,11 +176,6 @@ lemma "[stf Rec_even] \<turnstile> [Pred (\<lambda>s. s\<langle>''x''\<rangle> <
   apply (rule_tac \<Phi> = "Rel Trace_Formulas.Id \<Zcat> RVar ''even''"
     and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_UPD)
   apply simp_all+
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "RVar ''even''"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin]" in CH_ID)
-  apply simp_all
   by tfi_auto
 
 (* example 9 *)
@@ -255,11 +245,6 @@ lemma "[stf Rec_even] \<turnstile> [Pred (\<lambda>s. s\<langle>''x''\<rangle> <
   apply (rule_tac \<Phi> = "Rel Id \<Zcat> RVar ''even''"
     and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_finale]" in CH_UPD)
   apply simp_all+
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "RVar ''even''"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_finale]" in CH_ID)
-  apply simp_all
   by tfi_auto
 
 (* example 10 *)
@@ -329,11 +314,6 @@ lemma "[stf Rec_even] \<turnstile> [Rel Id \<Zcat> (Pred (\<lambda>s. s\<langle>
   apply (rule_tac \<Phi> = "Rel Id \<Zcat> RVar ''even''"
     and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_finale]" in CH_UPD)
   apply simp_all+
-  apply close
-  apply arb2
-  apply (rule_tac \<Phi> = "RVar ''even''"
-    and \<Psi>s = "[Pred (\<lambda>s. True) \<Zcat> Rel R_finale]" in CH_ID)
-  apply simp_all
   by tfi_auto
 
 end
