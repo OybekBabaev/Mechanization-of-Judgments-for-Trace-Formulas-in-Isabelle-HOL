@@ -38,6 +38,8 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>t (Call ''nt'') : (\<mu> ''dec''. (Rel R_x_
   apply simp
   defer
   apply tfi_auto
+  defer
+  apply tfi_auto
   oops
 
 (* example 12 *)
@@ -57,6 +59,8 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>t (Call ''nt'') : (\<mu> ''inc''. (Rel R_y_
   apply (simp add: sequent_valid_def)
   apply jc_auto
   apply simp
+  defer
+  apply tfi_auto
   defer
   apply tfi_auto
   oops

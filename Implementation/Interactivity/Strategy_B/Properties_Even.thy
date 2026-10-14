@@ -185,7 +185,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : (Rel Id \<Zcat> (Pred (
   apply (cons "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := (Var ''x'' \<ominus> Num 1), T\<^sub>e) \<Zcat> stf(SKIP, T\<^sub>e)
      \<Zcat> (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Rel R_y_bin)")
   apply jc_auto
-  apply (simp add: sequent_valid_def)+
+  apply (simp add: sequent_valid_def)
   apply blast
   apply tfi_auto
   defer
@@ -269,7 +269,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>e (Call ''even'') : (Rel Id \<Zcat> (Pred (
   apply (cons "stf(SKIP, T\<^sub>e) \<Zcat> stf(''x'' := (Var ''x'' \<ominus> Num 1), T\<^sub>e) \<Zcat> stf(SKIP, T\<^sub>e)
      \<Zcat> (Pred (\<lambda>s. s\<langle>''x''\<rangle> < 0) \<squnion> Pred (\<lambda>s. True) \<Zcat> Rel R_finale)")
   apply jc_auto
-  apply (simp add: sequent_valid_def)+
+  apply (simp add: sequent_valid_def)
   apply blast
   apply tfi_auto
   defer
