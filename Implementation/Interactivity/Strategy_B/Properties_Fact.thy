@@ -31,7 +31,7 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>f (Call ''fact'') : (Pred (\<lambda>s. s\<l
   apply tfi_auto
   apply (simp add: T\<^sub>f_def)
   apply jc_auto+
-  apply (cons "stf(SKIP;;SKIP, T\<^sub>d)")
+  apply (cons "stf(SKIP;;SKIP, T\<^sub>f)")
   apply jc_auto
   apply tfi_auto
   apply (cons "stf(SKIP, T\<^sub>f) \<Zcat> stf(''x'' := (Var ''x'' \<otimes> Var ''n''), T\<^sub>f)
@@ -45,13 +45,15 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>f (Call ''fact'') : (Pred (\<lambda>s. s\<l
   apply (rule_tac \<Phi> = "stf(''x'' := (Var ''x'' \<otimes> Var ''n''), T\<^sub>f)
     \<Zcat> stf(''n'' := (Var ''n'' \<ominus> Num 1), T\<^sub>f) \<Zcat> stf(SKIP, T\<^sub>f)
     \<Zcat> (\<mu> ''inc''. (Rel R_x_inc \<squnion> Rel R_x_inc \<Zcat> RVar ''inc''))"
-    and \<Psi>s = "[\<mu> ''inc''. (Rel R_x_inc \<squnion> Rel R_x_inc \<Zcat> RVar ''inc'')]" in CH_ID, simp_all)
+    and \<Psi>s = "[\<mu> ''inc''. (Rel R_x_inc \<squnion> Rel R_x_inc \<Zcat> RVar ''inc'')]" in CH_ID)
+  apply simp+
   apply rel
   apply unfr
   apply disj_r
   apply (rule_tac \<Phi> = "stf(''n'' := (Var ''n'' \<ominus> Num 1), T\<^sub>f) \<Zcat> stf(SKIP, T\<^sub>f)
     \<Zcat> (\<mu> ''inc''. (Rel R_x_inc \<squnion> Rel R_x_inc \<Zcat> RVar ''inc''))"
-    and \<Psi>s = "[\<mu> ''inc''. (Rel R_x_inc \<squnion> Rel R_x_inc \<Zcat> RVar ''inc'')]" in CH_UPD, simp_all+)
+    and \<Psi>s = "[\<mu> ''inc''. (Rel R_x_inc \<squnion> Rel R_x_inc \<Zcat> RVar ''inc'')]" in CH_UPD)
+  apply simp_all+
   defer
   apply tfi_auto
   oops
@@ -61,14 +63,14 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>f (Call ''fact'') : (Pred (\<lambda>s. s\<l
    and variable n stays gte 1,
    provided x was positive to begin with - ABANDONED *)
 lemma "[] \<turnstile>\<^sub>T\<^sub>f (''n'' := Num 10;;Call ''fact'') : (Pred (\<lambda>s. s\<langle>''x''\<rangle> \<le> 0) \<squnion> \<mu> ''combo''. (Rel R_combo \<squnion> Rel R_combo \<Zcat> RVar ''combo''))"
-  apply (cons "stf(''n'' := Num 10, T\<^sub>f) \<Zcat> Rel Id \<Zcat> (\<mu> ''combo''. (Rel R_combo \<squnion> Rel R_combo \<Zcat> RVar ''combo''))")
+  apply (cons "stf(''n'' := Num 10, T\<^sub>f) \<Zcat> Rel Id \<Zcat> (Pred (\<lambda>s. s\<langle>''x''\<rangle> \<le> 0) \<squnion> \<mu> ''combo''. (Rel R_combo \<squnion> Rel R_combo \<Zcat> RVar ''combo''))")
   apply jc_auto
   apply (simp add: T\<^sub>f_def)
   apply jc_auto+
-  apply (cons "stf(SKIP;;SKIP, T\<^sub>d)")
+  apply (cons "stf(SKIP;;SKIP, T\<^sub>f)")
   apply jc_auto
   apply simp
-  apply disj_r
+  apply disj_r+
   apply unfr
   apply disj_r
   apply (rule_tac \<Phi> = "Rel Id"
@@ -77,42 +79,18 @@ lemma "[] \<turnstile>\<^sub>T\<^sub>f (''n'' := Num 10;;Call ''fact'') : (Pred 
   prefer 3
   apply (cons "stf(SKIP, T\<^sub>f) \<Zcat> stf(''x'' := (Var ''x'' \<otimes> Var ''n''), T\<^sub>f)
     \<Zcat> stf(''n'' := (Var ''n'' \<ominus> Num 1), T\<^sub>f) \<Zcat> stf(SKIP, T\<^sub>f)
-    \<Zcat> (\<mu> ''combo''. (Rel R_combo \<squnion> Rel R_combo \<Zcat> RVar ''combo''))")
+    \<Zcat> (Pred (\<lambda>s. s\<langle>''x''\<rangle> \<le> 0) \<squnion> \<mu> ''combo''. (Rel R_combo \<squnion> Rel R_combo \<Zcat> RVar ''combo''))")
   apply jc_auto
   apply (simp add: sequent_valid_def)+
-  apply disj_r
-  apply unfr
-  apply disj_r
-  apply (rule_tac \<Phi> = "Rel (Sb ''x'' (Var ''x'' \<otimes> Var ''n'')) \<Zcat>
-     Rel (Sb ''n'' (Var ''n'' \<ominus> Num 1)) \<Zcat>
-     Rel Trace_Formulas.Id \<Zcat>
-     \<mu> ''combo''. (Rel R_combo \<squnion> Rel R_combo \<Zcat> RVar ''combo'')"
-      and \<Psi>s = "[\<mu> ''combo''. (Rel R_combo \<squnion> Rel R_combo \<Zcat> RVar ''combo'')]" in CH_ID)
-  apply simp+
-  defer
-  apply unfr
-  apply disj_r
-  apply (rule_tac \<Phi> = "Rel (Sb ''n'' (Var ''n'' \<ominus> Num 1)) \<Zcat>
-     Rel Trace_Formulas.Id \<Zcat>
-     \<mu> ''combo''. (Rel R_combo \<squnion> Rel R_combo \<Zcat> RVar ''combo'')"
-      and \<Psi>s = "[\<mu> ''combo''. (Rel R_combo \<squnion> Rel R_combo \<Zcat> RVar ''combo'')]" in CH_UPD)
-  apply simp+
-  defer
-  apply unfr
-  apply disj_r
-  apply (rule_tac \<Phi> = "Rel Trace_Formulas.Id \<Zcat>
-     \<mu> ''combo''. (Rel R_combo \<squnion> Rel R_combo \<Zcat> RVar ''combo'')"
-      and \<Psi>s = "[\<mu> ''combo''. (Rel R_combo \<squnion> Rel R_combo \<Zcat> RVar ''combo'')]" in CH_UPD)
-  apply simp+
-  defer
-  apply unfr
-  apply disj_r
-  apply (rule_tac \<Phi> = "\<mu> ''combo''. (Rel R_combo \<squnion> Rel R_combo \<Zcat> RVar ''combo'')"
-      and \<Psi>s = "[\<mu> ''combo''. (Rel R_combo \<squnion> Rel R_combo \<Zcat> RVar ''combo'')]" in CH_ID)
-  apply simp+
-  defer
-  apply close
+  apply tfi_auto
+  apply (simp add: Trace_Formula_Implication.sequent_valid_def)
+  apply clarsimp
+  apply (simp add: mult_le_0_iff)
+  apply tfi_auto
   prefer 3
+  apply tfi_auto
+  apply (simp add: Trace_Formula_Implication.sequent_valid_def)
+  apply fastforce
   apply tfi_auto
   oops
 
